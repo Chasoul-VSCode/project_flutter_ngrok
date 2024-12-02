@@ -21,28 +21,70 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> fetchMenuItems() async {
     try {
-      final response = await http.get(
-        Uri.parse('https://3d2b-114-10-77-11.ngrok-free.app/api/foods'),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          // Add CORS headers
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-          'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token'
+      // Hardcoded cafe menu items
+      final menuData = [
+        {
+          'name': 'Cappuccino',
+          'description': 'Classic Italian coffee drink with espresso and steamed milk foam',
+          'price': '35000',
+          'category': 'Coffee',
+          'imageUrl': 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80'
         },
-      );
-      
-      if (response.statusCode == 200) {
-        setState(() {
-          menuItems = json.decode(response.body);
-          isLoading = false;
-        });
-      } else {
-        print('Failed to load menu items. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
-        throw Exception('Failed to load menu items');
-      }
+        {
+          'name': 'Cafe Latte',
+          'description': 'Espresso with steamed milk and light layer of foam',
+          'price': '32000',
+          'category': 'Coffee',
+          'imageUrl': 'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80'
+        },
+        {
+          'name': 'Green Tea Latte',
+          'description': 'Japanese matcha green tea with steamed milk',
+          'price': '38000',
+          'category': 'Non-Coffee',
+          'imageUrl': 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80'
+        },
+        {
+          'name': 'Chocolate Croissant',
+          'description': 'Buttery flaky pastry filled with rich chocolate',
+          'price': '25000',
+          'category': 'Food',
+          'imageUrl': 'https://images.unsplash.com/photo-1549903072-7e6e0bedb7fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80'
+        },
+        {
+          'name': 'Club Sandwich',
+          'description': 'Triple-decker sandwich with chicken, bacon, lettuce and tomato',
+          'price': '45000',
+          'category': 'Food',
+          'imageUrl': 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80'
+        },
+        {
+          'name': 'French Fries',
+          'description': 'Crispy golden potato fries served with ketchup',
+          'price': '28000',
+          'category': 'Snacks',
+          'imageUrl': 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80'
+        },
+        {
+          'name': 'Caramel Macchiato',
+          'description': 'Espresso with vanilla syrup, steamed milk and caramel drizzle',
+          'price': '42000',
+          'category': 'Coffee',
+          'imageUrl': 'https://images.unsplash.com/photo-1485808191679-5f86510681a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80'
+        },
+        {
+          'name': 'Chocolate Cake',
+          'description': 'Rich chocolate layer cake with chocolate ganache',
+          'price': '35000',
+          'category': 'Food',
+          'imageUrl': 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80'
+        }
+      ];
+
+      setState(() {
+        menuItems = menuData;
+        isLoading = false;
+      });
     } catch (e) {
       setState(() {
         isLoading = false;
@@ -111,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      childAspectRatio: 0.8,
+                      childAspectRatio: 0.6,
                       crossAxisSpacing: 8,
                       mainAxisSpacing: 8,
                     ),
